@@ -13,5 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "@forrestjs/core": "^5.2.1",
+    "winston": "^3.8.2"
   }
 }

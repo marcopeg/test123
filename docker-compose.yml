@@ -25,12 +25,40 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock
 
+  # proxy:
+  #   image: ts-one-front-docker-repo.ts-paas.com/proxy-service:0.0.13
+  #   container_name: proxy
+  #   # Uncomment the following declaration if you are running
+  #   # the client apps natively
+  #   # ports:
+  #   #   - "${PROXY_PORT:-4010}:8080"
+  #   #volumes:
+  #   #  - ./apps/proxy/src:/usr/src/app/src:delegated
+  #   #  - ./apps/proxy/package.json:/usr/src/app/package.json
+  #   environment:
+  #     LOG_LEVEL: ${PROXY_LOG_LEVEL:-info}
+  #     REGISTRY_URL: ${REGISTRY_URL:-http://registry:8080}
+  #     MOCKS_ENABLED: "true"
+  #     MOCKS_PATH: "/local-mocks"
+  #   volumes:
+  #     - ./local-mocks:/local-mocks
+  #   restart: unless-stopped
+  #   depends_on:
+  #     registry:
+  #       condition: service_healthy
+  #   healthcheck:
+  #     test: ["CMD", "wget", "-qO", "-", "http://proxy:8080/healthz"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 20
+
   app:
     image: node
+    container_name: app
     # user: "node"
     working_dir: /home/node/app
-    environment:
-    - NODE_ENV=production
+    # environment:
+    # - NODE_ENV=production
     volumes:
     - ./app/src:/home/node/app/src
     - ./app/package.json:/home/node/app/package.json
